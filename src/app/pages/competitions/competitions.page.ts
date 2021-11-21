@@ -12,8 +12,8 @@ import { AlertController } from '@ionic/angular';
 })
 export class CompetitionsPage implements OnInit, OnDestroy {
 
-  availableSeasons: string[] = [];
-  currentSeason = '';
+  availableSeasons: number[] = [];
+  currentSeason = 0;
   competitions: ICompetition[] = [];
   fCompetitions: ICompetition[] = [];
 
@@ -31,7 +31,6 @@ export class CompetitionsPage implements OnInit, OnDestroy {
 
   loadAvailableSeasons() {
     this.availableSeasonsSub = this.cmpService.getAvailableSeasons().subscribe((seasons) => {
-      console.log(seasons);
       this.availableSeasons = seasons;
       const isNowSeason = seasons.find(season => season.toString() === new Date().getFullYear().toString());
       this.currentSeason = isNowSeason ? isNowSeason : seasons[0];
@@ -72,7 +71,7 @@ export class CompetitionsPage implements OnInit, OnDestroy {
       message: `The provided token does not have permission to view this competition.`,
       buttons: [
         {
-          text: 'Ok',
+          text: 'OK',
           cssClass: 'btn-primary'
         }
       ]

@@ -105,6 +105,14 @@
           }
         }
       }
+      td {
+        border-top: 1px solid $clr-opacityDK;
+        height: 60px;   
+        @media screen and (min-width: 480px) {
+          border-top: none;
+          height: auto;   
+        }
+      }
     }
   }
 }

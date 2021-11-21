@@ -12,3 +12,8 @@ export interface ICompetition {
   numberOfAvailableSeasons: number;
   lastUpdated: Date;
 }
+export interface ICompetitionResponse {
+  count: number;
+  filters?: any;
+  competitions: ICompetition[];
+}

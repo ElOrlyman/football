@@ -3,7 +3,7 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 
 import { environment } from 'src/environments/environment';
 import { Observable } from 'rxjs';
-import { map, pluck } from 'rxjs/operators';
+import { filter, map, pluck } from 'rxjs/operators';
 
 import { ICompetition } from './../../models/ICompetition';
 
@@ -15,22 +15,29 @@ export class CompetitionsService {
 
   constructor(private http: HttpClient) {}
 
-  getAvailableSeasons(): Observable<any> {
+  getAvailableSeasons(): Observable<number[]> {
     let headers = new HttpHeaders();
     headers = headers.set('x-auth-token', sessionStorage.getItem('token'));
-    return this.http.get<any>(`${this.apiUrl}/competitions`, { headers }).pipe(
+    return this.http.get<number[]>(`${this.apiUrl}/competitions`, { headers }).pipe(
       pluck('competitions'),
-      map((res: any) =>
-        res.map((cmp: ICompetition) => {
+      filter((x: ICompetition[]) => {
+        if (x && x.length) {
+          return true;
+        } else {
+          return false;
+        }
+      }),
+      map((cmpArray: ICompetition[]) =>
+        cmpArray.map((cmp: ICompetition) => {
           if (cmp && cmp.currentSeason) {
-            return new Date(cmp.currentSeason?.startDate).getFullYear();
+            return new Date(cmp.currentSeason.startDate).getFullYear();
           } else {
             return 0;
           }
         }).filter((x: number) => x !== 0)
       ),
-      map((res) => [...new Set(res)]),
-      map((res) => res.sort().reverse())
+      map((res2) => [...new Set(res2)]),
+      map((res3) => res3.sort().reverse())
     );
   }
 

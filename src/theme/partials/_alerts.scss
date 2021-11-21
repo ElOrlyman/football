@@ -119,7 +119,7 @@ ion-alert {
         .alert-button-inner {
           justify-content: center !important;
         }
-        &.btn-primary {
+        &.btn-primary, &:not(.alert-button-role-cancel) {
           color: white !important;
           background-color: $clr-blue !important;
           border-color: $clr-blue !important;
@@ -164,6 +164,25 @@ ion-alert {
             color: $clr-blue !important;
             background-color: transparent !important;
             border-color: transparent !important;
+          }
+        }
+      }
+    }
+    .alert-radio-group {
+      border: none;
+      margin-top: 1rem;
+      .alert-radio-button {
+        .alert-button-inner {
+          .alert-radio-icon {
+            border-color: $clr-blue;
+            left: 0;
+            .alert-radio-inner {
+              background-color: $clr-blue;
+            }
+          }
+          .alert-radio-label {
+            padding: 0 1rem;
+            font-size: 16px;
           }
         }
       }

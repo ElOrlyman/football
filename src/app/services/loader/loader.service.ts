@@ -1,36 +1,30 @@
 import { Injectable } from '@angular/core';
 import { LoadingController } from '@ionic/angular';
+import { Subject } from 'rxjs';
 
 @Injectable({
   providedIn: 'root',
 })
 export class LoaderService {
-  loading: boolean;
+  isLoading = new Subject<boolean>();
 
   constructor(public loadingCtrl: LoadingController) {}
 
   async on() {
-    this.loading = true;
-    return await this.loadingCtrl
+    await this.loadingCtrl
       .create({
         spinner: null,
         message: `<div class="spinner-container">
-                  <img id="logo" src="./../../../assets/imgs/logo.png" />
-                </div>
-                <span">Loading</span>`,
+                <img id="logo" src="./../../../assets/imgs/logo.png" />
+              </div>
+              <span">Loading</span>`,
       })
-      .then((a) => {
-        a.present().then(() => {
-          // console.log("presented");
-          if (!this.loading) {
-            a.dismiss(); //.then(() => console.log("abort presenting"));
-          }
-        });
-      });
+      .then((a) => a.present());
+    this.isLoading.next(true);
   }
 
   async off() {
-    this.loading = false;
-    return await this.loadingCtrl.dismiss(); //.then(() => console.log("dismissed"));
+    await this.loadingCtrl.dismiss();
+    this.isLoading.next(false);
   }
 }

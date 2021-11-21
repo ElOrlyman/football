@@ -22,16 +22,9 @@ describe('CompetitionsService', () => {
     httpTestingController.verify();
   });
 
-  it('#getAvailableSeasons should return array of strings', (done) => {
-    const expectedData: string[] = [
-      '2022',
-      '2021',
-      '2020',
-      '2019',
-      '2018',
-      '2017',
-      '2015',
-      '2007',
+  it('#getAvailableSeasons should return array of numbers', (done) => {
+    const expectedData: number[] = [
+      2022, 2021, 2020, 2019, 2018, 2017, 2015, 2007,
     ];
 
     service.getAvailableSeasons().subscribe((data) => {
@@ -45,13 +38,13 @@ describe('CompetitionsService', () => {
     testRequest.flush(expectedData);
   });
 
-  // it('#getData should use GET to retrieve data', () => {
-  //   service.getData().subscribe();
-
-  //   const testRequest = httpTestingController.expectOne('http://localhost:9999/data');
-
-  //   expect(testRequest.request.method).toEqual('GET');
-  // });
+  it('#getAvailableSeasons should use GET to retrieve data', () => {
+    service.getAvailableSeasons().subscribe();
+    const testRequest = httpTestingController.expectOne(
+      'https://api.football-data.org/v2/competitions'
+    );
+    expect(testRequest.request.method).toEqual('GET');
+  });
 
   it('should be created', () => {
     expect(service).toBeTruthy();
