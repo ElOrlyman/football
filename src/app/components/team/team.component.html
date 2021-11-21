@@ -1,0 +1,9 @@
+<div class="card team">
+  <div class="card-body">
+    <h4 class="title">{{ team?.name }}</h4>
+    <div class="crest-container">
+      <img *ngIf="team?.crestUrl" [src]="team?.crestUrl" alt="{{ team?.name }}" />
+      <img class="placeholder" *ngIf="!team?.crestUrl" src="assets/imgs/logo.png" alt="{{ team?.name }}">
+    </div>
+  </div>
+</div>

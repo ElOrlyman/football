@@ -1,0 +1,50 @@
+@import './../../../global.scss';
+
+.team {
+  aspect-ratio: 2 / 1;
+  flex: 0 0 100%;
+  border: 6px solid white;
+  cursor: pointer;
+  margin-bottom: 0;
+  transition: box-shadow 0.3s;
+  .card-body {
+    height: 100%;
+    position: relative;
+    overflow: hidden;
+    .crest-container {
+      bottom: 0;
+      height: 60%;
+      right: 0;
+      padding: 1rem;
+      position: absolute;
+      width: 80%;
+      img {
+        height: 100%;
+        object-fit: contain;
+        object-position: right center;
+        width: 100%;
+        &.placeholder {
+          opacity: 0.15;
+        }
+      }
+    }
+    .title {
+      color: $clr-carbon;
+      font-size: 26px;
+      font-weight: 700;
+      margin: 0;
+      padding-right: 2rem;
+      position: relative;
+      z-index: 1;
+    }
+  }
+  &:hover {
+    box-shadow: 0 0 0 5px transparentize($clr-blue, 0.5);
+  }
+  &.denied {
+    opacity: 0.6;
+    &:hover {
+      box-shadow: 0 0 0 5px transparentize($clr-red, 0.5);
+    }
+  }
+}

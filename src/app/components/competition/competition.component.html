@@ -1,0 +1,9 @@
+<div class="card competition" [ngClass]="{ 'denied': competition?.plan !== 'TIER_ONE' }">
+  <div class="card-body">
+    <div class="emblem-container" [ngClass]="{ 'emblem-container': true, 'placeholder': !competition?.emblemUrl}">
+      <img *ngIf="competition?.emblemUrl" [src]="competition?.emblemUrl" alt="{{ competition?.name }}">
+      <img *ngIf="!competition?.emblemUrl" src="assets/imgs/logo.png" alt="{{ competition?.name }}">
+    </div>
+    <h4 class="title">{{ competition?.name }}</h4>
+  </div>
+</div>

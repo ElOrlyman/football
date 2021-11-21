@@ -1,0 +1,69 @@
+
+<ion-header class="ion-no-border">
+  <ion-toolbar color="primary">
+    <ion-buttons slot="start">
+      <ion-back-button class="btn-back" defaultHref="/" mode="ios"></ion-back-button>
+    </ion-buttons>
+    <ion-title>
+      <div class="nav-brand">
+        <img src="assets/imgs/logo.png">
+        <div class="text">Football XD</div>        
+      </div>
+    </ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+
+  <div class="page-content">
+    <div class="header">
+      <h1 class="page-title" *ngIf="team">{{ team.name }}</h1>
+      <div class="toolbar">
+        <ion-searchbar placeholder="Find player" animated inputmode="text" mode="ios" [debounce]="250" (ionChange)="onSearchChange($event)"></ion-searchbar>
+      </div>
+    </div>
+    <div class="body" *ngIf="team">
+      <div class="info-container">
+        <div class="crest-container" *ngIf="team.crestUrl">
+          <img [src]="team.crestUrl" [alt]="team.name">
+        </div>
+        <div class="data">
+          <ul>
+            <li *ngIf="team.shortName"><label>Short Name:</label><span>{{ team.shortName }}</span></li>
+            <li *ngIf="team.venue"><label>Venue:</label><span>{{ team.venue }}</span></li>
+            <li *ngIf="team.area"><label>Area:</label><span>{{ team.area.name }}</span></li>
+            <li *ngIf="team.founded"><label>Founded:</label><span>{{ team.founded }}</span></li>
+            <li *ngIf="team.address"><label>Address:</label><span>{{ team.address }}</span></li>
+            <li *ngIf="team.phone"><label>Phone:</label><span>{{ team.phone }}</span></li>
+            <!-- <li *ngIf="team.email"><label>Email:</label><span>{{ team.email }}</span></li> -->
+            <li *ngIf="team.website"><a [href]="team.website" target="_blank"><ion-icon name="open-outline"></ion-icon>Go to website</a></li>
+          </ul>
+        </div>
+      </div>
+      <div class="players-container">
+        <div class="toolbar">
+          <ion-searchbar placeholder="Find player" animated inputmode="text" mode="ios" [debounce]="250" (ionChange)="onSearchChange($event)"></ion-searchbar>
+        </div>
+        <table class="table">
+          <thead>
+            <tr>
+              <th>Name</th>
+              <th>Age</th>
+              <th>Nationality</th>
+              <th>Position</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let player of fPlayers">
+              <td>{{ player.name }}<small>{{ player.position }}</small></td>
+              <td class="text-center">{{ player.dateOfBirth | age }}</td>
+              <td class="text-center">{{ player.nationality }}</td>
+              <td class="text-center">{{ player.position }}</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+
+</ion-content>

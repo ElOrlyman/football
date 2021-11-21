@@ -1,0 +1,40 @@
+@import './../../../global.scss';
+
+.competitions-container {
+  display: grid;
+  grid-template-columns: repeat(1, 1fr);
+  grid-gap: 20px;
+  grid-template-areas:
+    "a";
+  align-items: start;
+  @media screen and (min-width: 540px) {
+    grid-template-columns: repeat(2, 1fr);
+    grid-template-areas:
+      "a b"
+      "c d";
+    align-items: start;
+  }
+  @media screen and (min-width: 800px) {
+    grid-template-columns: repeat(3, 1fr);
+    grid-template-areas:
+    "a b c"
+    "a b c"
+    "a b c";
+  }
+  @media screen and (min-width: 1024px) {
+    grid-template-columns: repeat(4, 1fr);
+    grid-template-areas:
+      "a a b b"
+      "a a b b"
+      "c c d d"
+      "c c d d";
+  }
+  @media screen and (min-width: 1440px) {
+    grid-template-columns: repeat(6, 1fr);
+    grid-template-areas:
+    "a a a b b b"
+    "a a a b b b"
+    "c c c d d d"
+    "c c c d d d";
+  }
+}

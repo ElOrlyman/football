@@ -1,0 +1,47 @@
+
+<ion-header class="ion-no-border">
+  <ion-toolbar color="primary">
+    <!-- <ion-buttons slot="start">
+      <ion-back-button defaultHref="/" mode="ios"></ion-back-button>
+    </ion-buttons> -->
+    <ion-buttons slot="end">
+      <ion-button  class="season-trigger" (click)="presentPopover($event)">
+        <ion-icon name="calendar-outline"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+    <ion-title>
+      <div class="nav-brand">
+        <img src="assets/imgs/logo.png">
+        <div class="text">Football XD</div>        
+      </div>
+    </ion-title>
+    <ion-item slot="end" color="primary" lines="none"  class="season-container">
+      <ion-label>Season</ion-label>
+      <ion-select [value]="currentSeason" id="season" (ionChange)="seasonChange($event)">
+        <ion-select-option *ngFor="let season of availableSeasons" [value]="season">{{ season }}</ion-select-option>
+      </ion-select>
+    </ion-item>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+
+  <div class="page-content">
+    <div class="header">
+      <h1 class="page-title">
+        Competitions
+        <small *ngIf="currentSeason">Season {{ currentSeason }}</small>
+      </h1>
+      <div class="toolbar">
+        <ion-searchbar placeholder="Find competition" animated inputmode="text" mode="ios" [debounce]="250" (ionChange)="onSearchChange($event)"></ion-searchbar>
+      </div>
+    </div>
+    <div class="competitions-container">
+      <ng-container *ngFor="let cmp of fCompetitions">
+        <app-competition [competition]="cmp" [routerLink]="cmp.id" *ngIf="cmp.plan === 'TIER_ONE'"></app-competition>
+        <app-competition [competition]="cmp" *ngIf="cmp.plan !== 'TIER_ONE'" (click)="noPermissionAlert()"></app-competition>
+      </ng-container>
+    </div>
+  </div>
+
+</ion-content>

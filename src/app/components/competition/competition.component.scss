@@ -1,0 +1,73 @@
+@import './../../../global.scss';
+
+.competition {
+  aspect-ratio: 4.5 / 3;
+  flex: 0 0 50%;
+  border: 6px solid white;
+  cursor: pointer;
+  margin-bottom: 0;
+  transition: box-shadow 0.3s;
+  .card-body {
+    height: 100%;
+    position: relative;
+    overflow: hidden;
+    .emblem-container {
+      bottom: -50px;
+      height: 80%;
+      padding: 1rem;
+      position: absolute;
+      right: -30px;
+      width: 80%;
+      transition: transform 1.2s ease;
+      img {
+        height: 100%;
+        object-fit: contain;
+        object-position: right center;
+        width: 100%;
+        transition: opacity 0.3s ease;
+      }
+      &.placeholder {
+        img {
+          opacity: 0.15;
+          filter: grayscale(1);
+        }
+      }
+    }
+    .title {
+      color: $clr-carbon;
+      font-size: 26px;
+      font-weight: 700;
+      margin: 0;
+      padding-right: 2rem;
+      position: relative;
+      text-shadow: 2px 2px white;
+      z-index: 1;
+    }
+  }
+  &:hover {
+    box-shadow: 0 0 0 5px transparentize($clr-blue, 0.5);
+    .card-body {
+      .emblem-container:not(.placeholder) {
+        transform: translate(-20px, -40px);
+        img {
+          opacity: 0.85;
+          filter: none;
+        }
+      }
+    }
+  }
+  &.denied {
+    opacity: 0.6;
+    .card-body {
+      .emblem-container {
+        img {
+          filter: grayscale(1);
+          opacity: 0.35;
+        }
+      }
+    }
+    &:hover {
+      box-shadow: 0 0 0 5px transparentize($clr-red, 0.5);
+    }
+  }
+}

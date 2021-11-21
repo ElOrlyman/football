@@ -1,0 +1,32 @@
+
+<ion-header class="ion-no-border">
+  <ion-toolbar color="primary">
+    <ion-buttons slot="start">
+      <ion-back-button class="btn-back" defaultHref="/" mode="ios"></ion-back-button>
+    </ion-buttons>
+    <ion-title>
+      <div class="nav-brand">
+        <img src="assets/imgs/logo.png">
+        <div class="text">Football XD</div>        
+      </div>
+    </ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+
+  <div class="page-content">
+    <div class="header">
+      <h1 class="page-title" *ngIf="competition">{{ competition.name }}</h1>
+      <div class="toolbar">
+        <ion-searchbar placeholder="Find team" animated inputmode="text" mode="ios" [debounce]="250" (ionChange)="onSearchChange($event)"></ion-searchbar>
+      </div>
+    </div>
+    <div class="teams-container">
+      <ng-container *ngFor="let team of fTeams">
+        <app-team [team]='team' [routerLink]="['/teams/' + team.id]" ></app-team>
+      </ng-container>
+    </div>
+  </div>
+
+</ion-content>
