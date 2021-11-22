@@ -2,7 +2,7 @@ import { IArea } from './IArea';
 import { ISeason } from './ISeason';
 
 export interface ICompetition {
-  id: number;
+  id: string;
   area: IArea;
   name: string;
   code: string;
