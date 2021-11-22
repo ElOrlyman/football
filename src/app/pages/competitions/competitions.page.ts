@@ -62,6 +62,7 @@ export class CompetitionsPage implements OnInit, OnDestroy {
 
   seasonChange(event: any) {
     this.loadCompetitions(event.detail.value);
+    this.currentSeason = event.detail.value;
   }
 
   async noPermissionAlert() {
