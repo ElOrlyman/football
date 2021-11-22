@@ -67,8 +67,8 @@ export class CompetitionsPage implements OnInit, OnDestroy {
   async noPermissionAlert() {
     const alert = await this.alertCtrl.create({
       header: 'Alert',
-      subHeader: 'Permission denied',
-      message: `The provided token does not have permission to view this competition.`,
+      subHeader: 'Competition unavailable',
+      message: `Sorry, we can't get information about this competition at the moment.`,
       buttons: [
         {
           text: 'OK',

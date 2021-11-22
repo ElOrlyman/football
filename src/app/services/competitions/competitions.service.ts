@@ -2,10 +2,11 @@ import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 
 import { environment } from 'src/environments/environment';
-import { Observable } from 'rxjs';
-import { filter, map, pluck } from 'rxjs/operators';
+import { Observable, of } from 'rxjs';
+import { catchError, filter, map, pluck } from 'rxjs/operators';
 
 import { ICompetition } from './../../models/ICompetition';
+import { UtilsService } from './../utils/utils.service';
 
 @Injectable({
   providedIn: 'root',
@@ -13,7 +14,10 @@ import { ICompetition } from './../../models/ICompetition';
 export class CompetitionsService {
   apiUrl = environment.apiUrl;
 
-  constructor(private http: HttpClient) {}
+  constructor(
+    private http: HttpClient,
+    private utilsService: UtilsService
+  ) {}
 
   getAvailableSeasons(): Observable<number[]> {
     let headers = new HttpHeaders();
@@ -37,7 +41,15 @@ export class CompetitionsService {
         }).filter((x: number) => x !== 0)
       ),
       map((res2) => [...new Set(res2)]),
-      map((res3) => res3.sort().reverse())
+      map((res3) => res3.sort().reverse()),
+      catchError(error => {
+        if (error.error instanceof ErrorEvent) {
+          this.utilsService.presentSimpleAlert('Error', `Error: ${error.error.message}`);
+        } else {
+          this.utilsService.presentSimpleAlert('Error', this.utilsService.getServerErrorMessage(error));
+        }
+        return of([]);
+      })
     );
   }
 
@@ -52,7 +64,15 @@ export class CompetitionsService {
             (cmp: ICompetition) =>
               new Date(cmp.currentSeason?.startDate).getFullYear() === season
           )
-        )
+        ),
+        catchError(error => {
+          if (error.error instanceof ErrorEvent) {
+            this.utilsService.presentSimpleAlert('Error', `Error: ${error.error.message}`);
+          } else {
+            this.utilsService.presentSimpleAlert('Error', this.utilsService.getServerErrorMessage(error));
+          }
+          return of([]);
+        })
       );
   }
 
@@ -62,6 +82,15 @@ export class CompetitionsService {
     return this.http.get<any>(
       `${this.apiUrl}/competitions/${competitionId}/teams`,
       { headers }
+    ).pipe(
+      catchError(error => {
+        if (error.error instanceof ErrorEvent) {
+          this.utilsService.presentSimpleAlert('Error', `Error: ${error.error.message}`);
+        } else {
+          this.utilsService.presentSimpleAlert('Error', this.utilsService.getServerErrorMessage(error));
+        }
+        return of(null);
+      })
     );
   }
 }
