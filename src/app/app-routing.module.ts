@@ -5,26 +5,41 @@ const routes: Routes = [
   {
     path: '',
     redirectTo: 'competitions',
-    pathMatch: 'full'
+    pathMatch: 'full',
   },
   {
     path: 'competitions',
-    loadChildren: () => import('./pages/competitions/competitions.module').then( m => m.CompetitionsPageModule)
+    loadChildren: () =>
+      import('./pages/competitions/competitions.module').then(
+        (m) => m.CompetitionsPageModule
+      ),
   },
   {
     path: 'competitions/:id',
-    loadChildren: () => import('./pages/competitions/single/single-competition.module').then( m => m.SingleCompetitionPageModule)
+    loadChildren: () =>
+      import('./pages/competitions/single/single-competition.module').then(
+        (m) => m.SingleCompetitionPageModule
+      ),
   },
   {
     path: 'teams/:id',
-    loadChildren: () => import('./pages/team/team.module').then( m => m.TeamPageModule)
+    loadChildren: () =>
+      import('./pages/team/team.module').then((m) => m.TeamPageModule),
   },
+  {
+    path: '404',
+    loadChildren: () =>
+      import('./pages/not-found/not-found.module').then(
+        (m) => m.NotFoundPageModule
+      ),
+  },
+  { path: '**', redirectTo: '/404' },
 ];
 
 @NgModule({
   imports: [
-    RouterModule.forRoot(routes, { preloadingStrategy: PreloadAllModules })
+    RouterModule.forRoot(routes, { preloadingStrategy: PreloadAllModules }),
   ],
-  exports: [RouterModule]
+  exports: [RouterModule],
 })
-export class AppRoutingModule { }
+export class AppRoutingModule {}

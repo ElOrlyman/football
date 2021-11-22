@@ -15,7 +15,7 @@ export class LoaderService {
       .create({
         spinner: null,
         message: `<div class="spinner-container">
-                <img id="logo" src="./../../../assets/imgs/logo.png" />
+                <img id="logo" src="assets/imgs/logo.png" />
               </div>
               <span">Loading</span>`,
       })
