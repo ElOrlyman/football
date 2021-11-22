@@ -67,7 +67,7 @@ export class CompetitionsPage implements OnInit, OnDestroy {
 
   async noPermissionAlert() {
     const alert = await this.alertCtrl.create({
-      header: 'Alert',
+      header: 'Woops!',
       subHeader: 'Competition unavailable',
       message: `Sorry, we can't get information about this competition at the moment.`,
       buttons: [
